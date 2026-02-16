@@ -42,18 +42,16 @@ namespace WinNotes.Helpers
 
             foreach (Block block in AssociatedObject.Document.Blocks)
             {
-                if (block is BlockUIContainer blockContainer &&
-                    blockContainer.Child is Image img)
+                if (block is BlockUIContainer blockContainer && blockContainer.Child is Image img1)
                 {
-                    ApplySize(img, maxWidth);
+                    ApplySize(img1, maxWidth);
                 }
 
                 if (block is Paragraph paragraph)
                 {
                     foreach (Inline inline in paragraph.Inlines)
                     {
-                        if (inline is InlineUIContainer inlineContainer &&
-                            inlineContainer.Child is Image img2)
+                        if (inline is InlineUIContainer inlineContainer && inlineContainer.Child is Image img2)
                         {
                             ApplySize(img2, maxWidth);
                         }
@@ -67,6 +65,7 @@ namespace WinNotes.Helpers
             if (img.MaxWidth != maxWidth)
             {
                 img.Stretch = Stretch.Uniform;
+                img.ClearValue(FrameworkElement.HeightProperty);
                 img.MaxWidth = maxWidth;
             }
         }

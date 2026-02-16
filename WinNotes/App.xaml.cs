@@ -1,6 +1,8 @@
 ﻿using HandyControl.Controls;
+using System.Globalization;
 using System.IO;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Documents;
 using WinNotes.Helpers;
 
@@ -21,12 +23,17 @@ namespace WinNotes
 
             mainSprite = new();
             mainSprite.Show();
+
+            #region 热键注册
+            HotKeyHelper.InitHotKey(GlobalDataHelper.appConfig!.HotKey, mainSprite, (hotkey) => { mainSprite.Activate(); });
+            #endregion
         }
 
         protected override void OnExit(ExitEventArgs e)
         {
             base.OnExit(e);
 
+            #region 保存配置
             GlobalDataHelper.appConfig!.X = mainSprite!.Left;
             GlobalDataHelper.appConfig!.Y = mainSprite!.Top;
             GlobalDataHelper.appConfig!.Width = mainSprite!.Width;
@@ -41,6 +48,25 @@ namespace WinNotes
             GlobalDataHelper.appData!.DocumentBytes = ms.ToArray();
 
             GlobalDataHelper.Save();
+            #endregion
+
+            HotKeyHelper.DisposeHotKey();
+        }
+    }
+
+    public class Bool2ResourceConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if ((bool)value)
+                return Application.Current.FindResource(((string)parameter).Split(',')[0]);
+            else
+                return Application.Current.FindResource(((string)parameter).Split(',')[1]);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
         }
     }
 }

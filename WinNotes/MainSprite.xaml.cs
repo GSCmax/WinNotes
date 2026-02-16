@@ -26,6 +26,8 @@ namespace WinNotes
             }
         }
 
+        private void Window_Activated(object sender, EventArgs e) => rtb.Focus();
+
         private void CloseButton_Click(object sender, RoutedEventArgs e) => Close();
 
         private void Opacity_MouseWheel(object sender, MouseWheelEventArgs e)
@@ -46,25 +48,21 @@ namespace WinNotes
                     o = 0.5;
             }
             Opacity = o;
+            e.Handled = true;
         }
 
         private void FontAdjust_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (rtb == null) return;
-
             if (e.Delta > 0)
             {
-                // 鼠标向上滚动，放大字体
                 EditingCommands.IncreaseFontSize.Execute(null, rtb);
             }
             else
             {
-                // 鼠标向下滚动，缩小字体
                 EditingCommands.DecreaseFontSize.Execute(null, rtb);
             }
-
-            e.Handled = true; // 阻止事件冒泡
+            e.Handled = true;
         }
-
     }
 }
