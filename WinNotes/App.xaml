@@ -1,0 +1,94 @@
+﻿<Application x:Class="WinNotes.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:o="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
+             xmlns:local="clr-namespace:WinNotes"
+             xmlns:hc="clr-namespace:HandyControl.Controls;assembly=HandyControl"
+             xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <Application.Resources>
+        <ResourceDictionary>
+            <!--#region HandyControl-->
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinDefault.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Theme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <!--#endregion-->
+            
+            <Style x:Key="MyToggleButtonGroupItemBaseStyle" BasedOn="{StaticResource BaseStyle}" TargetType="ToggleButton">
+                <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="hc:BorderElement.CornerRadius" Value="0" />
+                <Setter Property="Height" Value="{StaticResource DefaultControlHeight}" />
+                <Setter Property="Padding" Value="10,0" />
+                <Setter Property="Margin" Value="-1,0,0,0" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ToggleButton">
+                            <Border x:Name="BorderRoot" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="{TemplateBinding Padding}">
+                                    <Path x:Name="PathMain" Width="{TemplateBinding hc:IconElement.Width}" Height="{TemplateBinding hc:IconElement.Height}" Fill="{TemplateBinding Foreground}" SnapsToDevicePixels="True" Stretch="Uniform" Data="{TemplateBinding hc:IconElement.Geometry}" />
+                                    <ContentPresenter x:Name="contentPresenter" RecognizesAccessKey="True" VerticalAlignment="Center" Margin="6,0,0,0" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                </StackPanel>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="TextElement.Foreground" Value="{DynamicResource PrimaryBrush}" TargetName="contentPresenter" />
+                                </Trigger>
+                                <Trigger Property="IsChecked" Value="true">
+                                    <!--<Setter Property="BorderBrush" Value="{Binding Path=(hc:VisualElement.HighlightBorderBrush),RelativeSource={RelativeSource TemplatedParent}}" TargetName="BorderRoot" />-->
+                                    <Setter Property="Background" Value="{Binding Path=(hc:VisualElement.HighlightBackground),RelativeSource={RelativeSource TemplatedParent}}" TargetName="BorderRoot" />
+                                    <Setter Property="TextElement.Foreground" Value="{Binding Path=(hc:VisualElement.HighlightForeground),RelativeSource={RelativeSource TemplatedParent}}" TargetName="contentPresenter" />
+                                </Trigger>
+                                <Trigger Property="Content" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Collapsed" TargetName="contentPresenter" />
+                                </Trigger>
+                                <Trigger Property="hc:IconElement.Geometry" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Collapsed" TargetName="PathMain" />
+                                    <Setter Property="Margin" Value="0" TargetName="contentPresenter" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Opacity" Value="0.4" />
+                    </Trigger>
+                    <Trigger Property="IsChecked" Value="True">
+                        <Setter Property="Panel.ZIndex" Value="{x:Static system:Int32.MaxValue}" />
+                    </Trigger>
+                    <DataTrigger Binding="{Binding Orientation,RelativeSource={RelativeSource  AncestorType=hc:ButtonGroup}}" Value="Vertical">
+                        <Setter Property="Margin" Value="0,-1,0,0" />
+                    </DataTrigger>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource BorderBrush}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+
+            <!--#region Geometry-->
+            <Geometry o:Freeze="True" x:Key="Pinned">M549.138793 957.857173L512 1024l-37.138793-66.142827a5171.236202 5171.236202 0 0 1-40.37566-74.107225 5180.009816 5180.009816 0 0 1-88.587947-173.342761 3648.290147 3648.290147 0 0 1-35.137046-74.405357C248.876762 501.075573 213.867487 400.988229 213.867487 340.722872a298.132513 298.132513 0 1 1 596.265026 0c0 60.265358-35.009275 160.352701-96.893067 295.278958a3648.290147 3648.290147 0 0 1-35.179636 74.405357 5180.009816 5180.009816 0 0 1-128.921017 247.449986z m-34.796323-114.227343a5096.362351 5096.362351 0 0 0 87.139874-170.489207c12.095662-24.91536 23.595059-49.191865 34.327829-72.659152C692.199809 477.565695 724.951795 383.909495 724.951795 340.722872A212.951795 212.951795 0 0 0 299.048205 340.722872c0 43.186624 32.794576 136.842823 89.141622 259.801189 10.73277 23.424697 22.232167 47.701202 34.327829 72.616562A5096.362351 5096.362351 0 0 0 512 848.016637l2.34247-4.386807zM512 425.903589a85.180718 85.180718 0 1 1 0-170.361435 85.180718 85.180718 0 0 1 0 170.361435z</Geometry>
+            <Geometry o:Freeze="True" x:Key="Topmost">M855.866698 106.426915c0 23.451108-19.010983 42.463114-42.463114 42.463114L203.435319 148.890029c-23.451108 0-42.463114-19.010983-42.463114-42.463114l0 0c0-23.451108 19.010983-42.463114 42.463114-42.463114l609.968266 0C836.855716 63.963801 855.866698 82.974783 855.866698 106.426915L855.866698 106.426915zM511.826038 264.35069c-23.451108 0-42.463114 19.010983-42.463114 42.463114l0 609.968266c0 23.451108 19.010983 42.463114 42.463114 42.463114l0 0c23.451108 0 42.463114-19.010983 42.463114-42.463114L554.289152 306.812781C554.288129 283.361673 535.277146 264.35069 511.826038 264.35069L511.826038 264.35069zM541.961382 233.023194c-16.582677-16.582677-42.517349-17.534352-57.927317-2.124384L171.253362 543.67849c-15.408945 15.408945-14.458293 41.343617 2.124384 57.926294l0 0c16.582677 16.582677 42.517349 17.534352 57.926294 2.124384L544.085766 290.949488C559.494711 275.540544 558.544059 249.605871 541.961382 233.023194L541.961382 233.023194zM481.696834 233.023194c-16.582677 16.582677-17.534352 42.517349-2.124384 57.926294l312.780703 312.780703c15.408945 15.408945 41.343617 14.458293 57.926294-2.124384l0 0c16.582677-16.582677 17.534352-42.517349 2.124384-57.926294L539.623128 230.897787C524.214183 215.488843 498.27951 216.440517 481.696834 233.023194L481.696834 233.023194z</Geometry>
+            <Geometry o:Freeze="True" x:Key="format_bold">M256 810.666667V213.333333h212.309333c91.136 0 171.349333 76.928 171.349334 170.666667 0 40.490667-14.933333 77.824-39.296 107.221333C650.069333 520.789333 682.666667 577.109333 682.666667 640c0 92.458667-70.4 170.666667-162.133334 170.666667H256zM341.333333 298.666667v170.666666h126.976c43.306667 0 86.016-38.101333 86.016-85.333333s-42.709333-85.333333-86.016-85.333333H341.333333z m179.2 426.666666c42.496 0 76.8-38.101333 76.8-85.333333s-34.304-85.333333-76.8-85.333333H341.333333v170.666666h179.2z</Geometry>
+            <Geometry o:Freeze="True" x:Key="format_italic">M341.333333 213.333333v85.333334h128v426.666666H341.333333v85.333334h341.333334v-85.333334h-131.925334V298.666667H682.666667V213.333333z</Geometry>
+            <Geometry o:Freeze="True" x:Key="format_underlined">M512 725.333333c141.226667 0 256-114.773333 256-256V170.666667h-85.333333v298.666666c0 82.346667-88.32 170.666667-170.666667 170.666667-82.346667 0-170.666667-88.32-170.666667-170.666667V170.666667H256v298.666666c0 141.226667 114.773333 256 256 256z m-298.666667 85.333334v85.333333h597.333334v-85.333333H213.333333z</Geometry>
+            <Geometry o:Freeze="True" x:Key="undo_Geometry">M533.333333 341.333333c-113.066667 0-215.466667 42.24-294.4 110.933334L85.333333 298.666667v384h384l-154.453333-154.453334c59.306667-49.493333 134.826667-80.213333 218.453333-80.213333 151.04 0 279.466667 98.56 324.266667 234.666667l101.12-33.28C899.413333 470.613333 731.733333 341.333333 533.333333 341.333333z</Geometry>
+            <Geometry o:Freeze="True" x:Key="redo_Geometry">M785.066667 452.266667C706.133333 383.573333 603.733333 341.333333 490.666667 341.333333c-198.4 0-366.08 129.28-424.96 308.053334L166.4 682.666667a341.418667 341.418667 0 0 1 324.266667-234.666667c83.2 0 159.146667 30.72 218.453333 80.213333L554.666667 682.666667h384V298.666667l-153.6 153.6z</Geometry>
+            <Geometry o:Freeze="True" x:Key="add_Geometry">M554.666667 469.333333h298.666666v85.333334h-298.666666v298.666666h-85.333334v-298.666666H170.666667v-85.333334h298.666666V170.666667h85.333334v298.666666z</Geometry>
+            <Geometry o:Freeze="True" x:Key="minus_Geometry">M170.666667 469.333333v85.333334h682.666666v-85.333334z</Geometry>
+            <Geometry o:Freeze="True" x:Key="bulleted_Geometry">M384 64l640 0 0 128L384 192 384 64zM384 448l640 0 0 128L384 576 384 448zM384 832l640 0 0 128L384 960 384 832zM0 128A4 4 2520 1 0 256 128 4 4 2520 1 0 0 128zM0 512A4 4 2520 1 0 256 512 4 4 2520 1 0 0 512zM0 896A4 4 2520 1 0 256 896 4 4 2520 1 0 0 896z</Geometry>
+            <Geometry o:Freeze="True" x:Key="numbered_Geometry">M384 832 1024 832 1024 960 384 960zM384 448 1024 448 1024 576 384 576zM384 64 1024 64 1024 192 384 192zM192 0 192 256 128 256 128 64 64 64 64 0ZM128 526.016 128 576 256 576 256 640 64 640 64 494.016 192 434.016 192 384 64 384 64 320 256 320 256 466.016ZM256 704 256 1024 64 1024 64 960 192 960 192 896 64 896 64 832 192 832 192 768 64 768 64 704Z</Geometry>
+            <Geometry o:Freeze="True" x:Key="ai_Geometry">M332.8 204.8L221.866667 264.533333l64-110.933333L221.866667 42.666667l110.933333 64L443.733333 42.666667 384 153.6l64 110.933333c-4.266667 0-115.2-59.733333-115.2-59.733333zM870.4 640l110.933333-64-64 110.933333 64 110.933334-110.933333-64-110.933333 64 64-110.933334-64-110.933333 110.933333 64zM981.333333 42.666667l-64 110.933333L981.333333 264.533333l-110.933333-64-110.933333 64 64-110.933333L759.466667 42.666667l110.933333 64L981.333333 42.666667z m-388.266666 482.133333l110.933333-110.933333-93.866667-93.866667-110.933333 110.933333 93.866667 93.866667zM640 277.333333L746.666667 384c17.066667 17.066667 17.066667 46.933333 0 64L221.866667 968.533333c-17.066667 17.066667-46.933333 17.066667-64 0l-106.666667-106.666666c-17.066667-17.066667-17.066667-46.933333 0-64L576 277.333333c17.066667-17.066667 46.933333-17.066667 64 0z</Geometry>
+            <Geometry o:Freeze="True" x:Key="fontSize_Geometry">M417.92 138.666667L704 885.333333H578.24l-60.992-166.954666H218.752L158.304 885.333333H32l286.08-746.666666h99.84z m370.389333 138.666666L992 810.666667h-89.546667l-43.424-119.253334H715.328l-27.466667-71.701333h146.954667L753.706667 386.72h-1.536l-73.109334 210.058667-41.994666-109.621334L717.205333 277.333333h71.104z m-418.954666 14.453334h-2.165334L253.301333 618.005333h229.941334L369.354667 291.786667z</Geometry>
+            <!--#endregion-->
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

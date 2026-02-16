@@ -1,0 +1,132 @@
+﻿<hc:Window x:Class="WinNotes.MainSprite"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+           xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+           xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
+           xmlns:hc="https://handyorg.github.io/handycontrol" 
+           xmlns:local="clr-namespace:WinNotes" 
+           xmlns:helpers="clr-namespace:WinNotes.Helpers" 
+           ShowNonClientArea="False" ShowInTaskbar="False" 
+           hc:WindowAttach.ShowInTaskManager="False" 
+           hc:WindowAttach.IgnoreAltF4="False" 
+           hc:WindowAttach.IsDragElement="{Binding Source={x:Static helpers:GlobalDataHelper.appConfig}, Path=CanDrag}" 
+           helpers:WindowSnapHelper.SnapDistance="0" 
+           helpers:WindowSnapHelper.SnapToScreenEdge="True" 
+           Left="{Binding Source={x:Static helpers:GlobalDataHelper.appConfig}, Path=X}" 
+           Top="{Binding Source={x:Static helpers:GlobalDataHelper.appConfig}, Path=Y}" 
+           Topmost="{Binding Source={x:Static helpers:GlobalDataHelper.appConfig}, Path=Topmost}" 
+           Width="{Binding Source={x:Static helpers:GlobalDataHelper.appConfig}, Path=Width}" MinWidth="357" 
+           Height="{Binding Source={x:Static helpers:GlobalDataHelper.appConfig}, Path=Height}" MinHeight="200" 
+           Opacity="{Binding Source={x:Static helpers:GlobalDataHelper.appConfig}, Path=Opacity}" 
+           BorderThickness="1,3,1,1" BorderBrush="{DynamicResource PrimaryBrush}" 
+           WindowStyle="None" AllowsTransparency="True" 
+           FocusManager.FocusedElement="{Binding ElementName=rtb}" 
+           Loaded="Window_Loaded"
+           mc:Ignorable="d">
+
+    <hc:Window.Resources>
+        <helpers:MyButtonGroupItemStyleSelector x:Key="MyButtonGroupItemStyleSelector"/>
+    </hc:Window.Resources>
+
+    <DockPanel Margin="5">
+        <hc:SimplePanel DockPanel.Dock="Top">
+            <StackPanel Orientation="Horizontal">
+                <hc:ButtonGroup Width="75">
+                    <Button Padding="0,6" Command="EditingCommands.ToggleBold" CommandTarget="{Binding ElementName=rtb}">
+                        <Path Data="{StaticResource format_bold}" Stretch="Uniform" Fill="{DynamicResource PrimaryTextBrush}"/>
+                    </Button>
+                    <Button Padding="0,6" Command="EditingCommands.ToggleItalic" CommandTarget="{Binding ElementName=rtb}">
+                        <Path Data="{StaticResource format_italic}" Stretch="Uniform" Fill="{DynamicResource PrimaryTextBrush}"/>
+                    </Button>
+                    <Button Padding="0,6" Command="EditingCommands.ToggleUnderline" CommandTarget="{Binding ElementName=rtb}">
+                        <Path Data="{StaticResource format_underlined}" Stretch="Uniform" Fill="{DynamicResource PrimaryTextBrush}"/>
+                    </Button>
+                </hc:ButtonGroup>
+
+                <Border Width="25" Margin="5,0,0,0" Padding="3" CornerRadius="4" Background="{DynamicResource RegionBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" MouseWheel="FontAdjust_MouseWheel" Cursor="SizeAll" >
+                    <Path Data="{StaticResource fontSize_Geometry}" Stretch="Uniform" Fill="{DynamicResource PrimaryTextBrush}"/>
+                </Border>
+
+                <hc:ButtonGroup Width="75" Margin="5,0,0,0">
+                    <Button Padding="0,6" Command="EditingCommands.AlignLeft" CommandTarget="{Binding ElementName=rtb}">
+                        <Path Data="{StaticResource AlignLeftGeometry}" Stretch="Uniform" Fill="{DynamicResource PrimaryTextBrush}"/>
+                    </Button>
+                    <Button Padding="0,6" Command="EditingCommands.AlignCenter" CommandTarget="{Binding ElementName=rtb}">
+                        <Path Data="{StaticResource AlignHCenterGeometry}" Stretch="Uniform" Fill="{DynamicResource PrimaryTextBrush}"/>
+                    </Button>
+                    <Button Padding="0,6" Command="EditingCommands.AlignRight" CommandTarget="{Binding ElementName=rtb}">
+                        <Path Data="{StaticResource AlignRightGeometry}" Stretch="Uniform" Fill="{DynamicResource PrimaryTextBrush}"/>
+                    </Button>
+                </hc:ButtonGroup>
+
+                <!--<hc:ButtonGroup Width="50" Margin="5,0,0,0">
+                    <Button Padding="0,6" Command="EditingCommands.IncreaseFontSize" CommandTarget="{Binding ElementName=rtb}" MouseWheel="Button_MouseWheel">
+                        <Path Data="{StaticResource add_Geometry}" Stretch="Uniform"  Fill="{DynamicResource PrimaryTextBrush}"/>
+                    </Button>
+                    <Button Padding="2,12" Command="EditingCommands.IncreaseFontSize" CommandTarget="{Binding ElementName=rtb}">
+                        <Path Data="{StaticResource minus_Geometry}" Stretch="Uniform" Fill="{DynamicResource PrimaryTextBrush}"/>
+                    </Button>
+                </hc:ButtonGroup>-->
+
+                <hc:ButtonGroup Width="50" Margin="5,0,0,0">
+                    <Button Padding="0,5" Command="EditingCommands.ToggleNumbering" CommandTarget="{Binding ElementName=rtb}">
+                        <Path Data="{StaticResource numbered_Geometry}" Stretch="Uniform"  Fill="{DynamicResource PrimaryTextBrush}"/>
+                    </Button>
+                    <Button Padding="0,5" Command="EditingCommands.ToggleBullets" CommandTarget="{Binding ElementName=rtb}">
+                        <Path Data="{StaticResource bulleted_Geometry}" Stretch="Uniform" Fill="{DynamicResource PrimaryTextBrush}"/>
+                    </Button>
+                </hc:ButtonGroup>
+
+                <!--<hc:ButtonGroup Width="50" Margin="5,0,0,0">
+                    <Button Padding="0,9" Command="ApplicationCommands.Undo" CommandTarget="{Binding ElementName=rtb}">
+                        <Path Data="{StaticResource undo_Geometry}" Stretch="Uniform"  Fill="{DynamicResource PrimaryTextBrush}"/>
+                    </Button>
+                    <Button Padding="0,9" Command="ApplicationCommands.Redo" CommandTarget="{Binding ElementName=rtb}">
+                        <Path Data="{StaticResource redo_Geometry}" Stretch="Uniform" Fill="{DynamicResource PrimaryTextBrush}"/>
+                    </Button>
+                </hc:ButtonGroup>
+
+                <Slider Width="90" Margin="5,0,0,0" VerticalAlignment="Center" Value="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=Opacity, Mode=TwoWay}"
+                        Minimum="0.5" Maximum="1.0"/>-->
+            </StackPanel>
+
+            <hc:ButtonGroup Width="100" Margin="5,0,0,0" HorizontalAlignment="Right">
+                <hc:ButtonGroup.ItemContainerStyleSelector>
+                    <helpers:MyButtonGroupItemStyleSelector/>
+                    <!-- 返回你自定义的 Style -->
+                </hc:ButtonGroup.ItemContainerStyleSelector>
+                <Button Padding="0,5">
+                    <Path Data="{StaticResource ai_Geometry}" Stretch="Uniform" Fill="{DynamicResource PrimaryTextBrush}"/>
+                </Button>
+                <ToggleButton Padding="0,6" IsChecked="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=Topmost}" MouseWheel="Opacity_MouseWheel" Cursor="SizeNS">
+                    <Path Data="{StaticResource Topmost}" Stretch="Uniform" Fill="{DynamicResource PrimaryTextBrush}"/>
+                </ToggleButton>
+                <ToggleButton Padding="0,5" IsChecked="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=(hc:WindowAttach.IsDragElement),Converter={StaticResource Boolean2BooleanReConverter}}">
+                    <Path Data="{StaticResource Pinned}" Stretch="Uniform" Fill="{DynamicResource PrimaryTextBrush}"/>
+                </ToggleButton>
+                <Button Padding="0,5" Click="CloseButton_Click">
+                    <Path Data="{StaticResource DeleteFillCircleGeometry}" Stretch="Uniform" Fill="{DynamicResource DangerBrush}"/>
+                </Button>
+            </hc:ButtonGroup>
+
+            <!--<Button Click="Button_Click" HorizontalAlignment="Right" VerticalAlignment="Center" Padding="-1" Height="27" Width="27" Style="{StaticResource ButtonIcon}" hc:IconElement.Geometry="{StaticResource DeleteFillCircleGeometry}" Foreground="{DynamicResource DangerBrush}"/>
+            <ToggleButton HorizontalAlignment="Right" VerticalAlignment="Center" Height="27" Width="27" Margin="0,0,32,0" Style="{StaticResource ToggleButtonIconTransparent}"
+                          hc:IconSwitchElement.Geometry="{StaticResource Pinned}" hc:IconSwitchElement.GeometrySelected="{StaticResource UnPinned}" Padding="0"
+                          IsChecked="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=(hc:WindowAttach.IsDragElement)}" Foreground="{DynamicResource PrimaryTextBrush}"/>-->
+        </hc:SimplePanel>
+
+        <RichTextBox x:Name="rtb" FontSize="20" AcceptsReturn="True" Foreground="Black" Margin="0,5,0,0">
+            <i:Interaction.Behaviors>
+                <helpers:ImageAutoResizeBehavior/>
+            </i:Interaction.Behaviors>
+
+            <RichTextBox.Resources>
+                <Style TargetType="{x:Type Paragraph}">
+                    <Setter Property="LineHeight" Value="1.5"/>
+                </Style>
+            </RichTextBox.Resources>
+        </RichTextBox>
+    </DockPanel>
+
+</hc:Window>
