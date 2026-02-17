@@ -16,7 +16,7 @@
            Left="{Binding Source={x:Static helpers:GlobalDataHelper.appConfig}, Path=X}" 
            Top="{Binding Source={x:Static helpers:GlobalDataHelper.appConfig}, Path=Y}" 
            Topmost="{Binding Source={x:Static helpers:GlobalDataHelper.appConfig}, Path=Topmost}" 
-           Width="{Binding Source={x:Static helpers:GlobalDataHelper.appConfig}, Path=Width}" MinWidth="357" 
+           Width="{Binding Source={x:Static helpers:GlobalDataHelper.appConfig}, Path=Width}" MinWidth="332" 
            Height="{Binding Source={x:Static helpers:GlobalDataHelper.appConfig}, Path=Height}" MinHeight="200" 
            Opacity="{Binding Source={x:Static helpers:GlobalDataHelper.appConfig}, Path=Opacity}" 
            BorderThickness="1,3,1,1" BorderBrush="{Binding IsActive, RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource B2RC}, ConverterParameter='PrimaryBrush,SecondaryBorderBrush'}"
@@ -86,10 +86,10 @@
                         Minimum="0.5" Maximum="1.0"/>-->
             </StackPanel>
 
-            <hc:ButtonGroup Width="100" Opacity=".75" Margin="5,0,0,0" HorizontalAlignment="Right" ItemContainerStyleSelector="{StaticResource MyButtonGroupItemStyleSelector}">
-                <Button Padding="0,5">
+            <hc:ButtonGroup Width="75" Opacity=".75" Margin="5,0,0,0" HorizontalAlignment="Right" ItemContainerStyleSelector="{StaticResource MyButtonGroupItemStyleSelector}">
+                <!--<Button Padding="0,5">
                     <Path Data="{StaticResource ai_Geometry}" Stretch="Uniform" Fill="{DynamicResource PrimaryTextBrush}"/>
-                </Button>
+                </Button>-->
                 <ToggleButton Padding="0,6" IsChecked="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=Topmost}" MouseWheel="Opacity_MouseWheel" Cursor="SizeNS">
                     <InlineUIContainer>
                         <Path Data="{StaticResource Topmost}" Stretch="Uniform" Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType=TextBlock}}"/>
