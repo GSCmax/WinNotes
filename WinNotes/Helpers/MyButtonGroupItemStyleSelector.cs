@@ -17,17 +17,17 @@ namespace WinNotes.Helpers
 
                 // 返回你的自定义 Style，根据索引和方向
                 if (count == 1)
-                    return (Style)Application.Current.Resources["MyToggleButtonGroupItemBaseStyle"];
+                    return (Style)Application.Current.Resources["MyToggleButtonGroupItemSingle"];
 
                 if (buttonGroup.Orientation == System.Windows.Controls.Orientation.Horizontal)
                 {
-                    if (index == 0) return (Style)Application.Current.Resources["MyToggleButtonGroupItemBaseStyle"];
-                    if (index == count - 1) return (Style)Application.Current.Resources["MyToggleButtonGroupItemBaseStyle"];
+                    if (index == 0) return (Style)Application.Current.Resources["MyToggleButtonGroupItemHorizontalFirst"];
+                    if (index == count - 1) return (Style)Application.Current.Resources["MyToggleButtonGroupItemHorizontalLast"];
                 }
                 else
                 {
-                    if (index == 0) return (Style)Application.Current.Resources["MyToggleButtonGroupItemBaseStyle"];
-                    if (index == count - 1) return (Style)Application.Current.Resources["MyToggleButtonGroupItemBaseStyle"];
+                    if (index == 0) return (Style)Application.Current.Resources["MyToggleButtonGroupItemVerticalFirst"];
+                    if (index == count - 1) return (Style)Application.Current.Resources["MyToggleButtonGroupItemVerticalLast"];
                 }
 
                 return (Style)Application.Current.Resources["MyToggleButtonGroupItemBaseStyle"];

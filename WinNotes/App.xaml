@@ -100,6 +100,26 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
+
+            <Style x:Key="MyToggleButtonGroupItemSingle" BasedOn="{StaticResource MyToggleButtonGroupItemBaseStyle}" TargetType="ToggleButton">
+                <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
+            </Style>
+
+            <Style x:Key="MyToggleButtonGroupItemHorizontalFirst" BasedOn="{StaticResource MyToggleButtonGroupItemBaseStyle}" TargetType="ToggleButton">
+                <Setter Property="hc:BorderElement.CornerRadius" Value="4,0,0,4" />
+                <Setter Property="Margin" Value="0" />
+            </Style>
+            <Style x:Key="MyToggleButtonGroupItemHorizontalLast" BasedOn="{StaticResource MyToggleButtonGroupItemBaseStyle}" TargetType="ToggleButton">
+                <Setter Property="hc:BorderElement.CornerRadius" Value="0,4,4,0" />
+            </Style>
+
+            <Style x:Key="MyToggleButtonGroupItemVerticalFirst" BasedOn="{StaticResource MyToggleButtonGroupItemBaseStyle}" TargetType="ToggleButton">
+                <Setter Property="hc:BorderElement.CornerRadius" Value="4,4,0,0" />
+                <Setter Property="Margin" Value="0" />
+            </Style>
+            <Style x:Key="MyToggleButtonGroupItemVerticalLast" BasedOn="{StaticResource MyToggleButtonGroupItemBaseStyle}" TargetType="ToggleButton">
+                <Setter Property="hc:BorderElement.CornerRadius" Value="0,0,4,4" />
+            </Style>
             <!--#endregion-->
 
         </ResourceDictionary>
