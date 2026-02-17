@@ -11,6 +11,7 @@ namespace WinNotes.Helpers
         private readonly Window _window;
 
         private readonly int _id;
+        private static int _globalId;
 
         private bool _isKeyRegistered;
 
@@ -21,20 +22,21 @@ namespace WinNotes.Helpers
         {
             Key = key;
             KeyModifier = modifierKeys;
-            _id = GetHashCode();
+            _id = Interlocked.Increment(ref _globalId);
             _window = window;
             _currentDispatcher = Dispatcher.CurrentDispatcher;
             RegisterHotKey();
-            ComponentDispatcher.ThreadPreprocessMessage += ThreadPreprocessMessageMethod;
+            if (_isKeyRegistered)
+                ComponentDispatcher.ThreadPreprocessMessage += ThreadPreprocessMessageMethod;
 
             if (onKeyAction != null)
                 HotKeyPressed += onKeyAction;
         }
 
-        ~HotKeyHelper()
-        {
-            Dispose();
-        }
+        //~HotKeyHelper()
+        //{
+        //    Dispose();
+        //}
 
         public event Action<HotKeyHelper>? HotKeyPressed;
 
@@ -62,11 +64,7 @@ namespace WinNotes.Helpers
 
         private void OnHotKeyPressed()
         {
-            _currentDispatcher.Invoke(
-                delegate
-                {
-                    HotKeyPressed?.Invoke(this);
-                });
+            _currentDispatcher.BeginInvoke(() => { HotKeyPressed?.Invoke(this); });
         }
 
         private void RegisterHotKey()
@@ -76,12 +74,16 @@ namespace WinNotes.Helpers
                 return;
             }
 
+            var hwnd = new WindowInteropHelper(_window).Handle;
+            if (hwnd == IntPtr.Zero)
+                throw new InvalidOperationException("Window handle not created yet.");
+
             if (_isKeyRegistered)
             {
                 UnregisterHotKey();
             }
 
-            _isKeyRegistered = HotKeyWinApi.RegisterHotKey(new WindowInteropHelper(_window).Handle, _id, KeyModifier, InteropKey);
+            _isKeyRegistered = HotKeyWinApi.RegisterHotKey(hwnd, _id, KeyModifier, InteropKey);
 
             if (!_isKeyRegistered)
             {
@@ -107,7 +109,15 @@ namespace WinNotes.Helpers
 
         private void UnregisterHotKey()
         {
-            _isKeyRegistered = !HotKeyWinApi.UnregisterHotKey(new WindowInteropHelper(_window).Handle, _id);
+            if (!_isKeyRegistered) return;
+
+            var hwnd = new WindowInteropHelper(_window).Handle;
+            if (hwnd == IntPtr.Zero) return;
+
+            HotKeyWinApi.UnregisterHotKey(hwnd, _id);
+            _isKeyRegistered = false;
+
+            //_isKeyRegistered = !HotKeyWinApi.UnregisterHotKey(new WindowInteropHelper(_window).Handle, _id);
         }
 
         private static HotKeyHelper? hks;
@@ -162,5 +172,4 @@ namespace WinNotes.Helpers
         [DllImport("user32.dll", SetLastError = true)]
         public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
     }
-
 }

@@ -17,10 +17,4 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Resource Include="Resources\icon.ico">
-      <Link>Resources\icon.ico</Link>
-    </Resource>
-  </ItemGroup>
-
 </Project>
