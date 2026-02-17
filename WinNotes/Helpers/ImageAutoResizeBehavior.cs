@@ -3,6 +3,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
+using Image = System.Windows.Controls.Image;
+using RichTextBox = System.Windows.Controls.RichTextBox;
 
 namespace WinNotes.Helpers
 {

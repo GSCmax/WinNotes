@@ -1,8 +1,8 @@
 ﻿using HandyControl.Controls;
 using HandyControl.Tools;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using Application = System.Windows.Application;
 
 namespace WinNotes.Helpers
 {
@@ -12,14 +12,14 @@ namespace WinNotes.Helpers
         {
             if (container is ButtonGroup buttonGroup && item is ToggleButton tb)
             {
-                var count = buttonGroup.Items.OfType<ButtonBase>().Count(b => b.IsVisible);
+                var count = buttonGroup.Items.OfType<System.Windows.Controls.Primitives.ButtonBase>().Count(b => b.IsVisible);
                 var index = buttonGroup.Items.IndexOf(tb);
 
                 // 返回你的自定义 Style，根据索引和方向
                 if (count == 1)
                     return (Style)Application.Current.Resources["MyToggleButtonGroupItemBaseStyle"];
 
-                if (buttonGroup.Orientation == Orientation.Horizontal)
+                if (buttonGroup.Orientation == System.Windows.Controls.Orientation.Horizontal)
                 {
                     if (index == 0) return (Style)Application.Current.Resources["MyToggleButtonGroupItemBaseStyle"];
                     if (index == count - 1) return (Style)Application.Current.Resources["MyToggleButtonGroupItemBaseStyle"];
@@ -35,7 +35,6 @@ namespace WinNotes.Helpers
 
             // 其他类型按钮仍然用原始逻辑
             return base.SelectStyle(item, container);
-
         }
     }
 }

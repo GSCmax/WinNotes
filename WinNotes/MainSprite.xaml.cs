@@ -22,7 +22,7 @@ namespace WinNotes
             {
                 TextRange range = new TextRange(rtb.Document.ContentStart, rtb.Document.ContentEnd);
                 using MemoryStream ms = new MemoryStream(GlobalDataHelper.appData.DocumentBytes);
-                range.Load(ms, DataFormats.XamlPackage);
+                range.Load(ms, System.Windows.DataFormats.XamlPackage);
             }
         }
 

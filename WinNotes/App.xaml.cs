@@ -1,10 +1,9 @@
 ﻿using HandyControl.Controls;
-using System.Globalization;
 using System.IO;
 using System.Windows;
-using System.Windows.Data;
 using System.Windows.Documents;
 using WinNotes.Helpers;
+using Application = System.Windows.Application;
 
 namespace WinNotes
 {
@@ -44,29 +43,13 @@ namespace WinNotes
 
             TextRange range = new TextRange(mainSprite!.rtb.Document.ContentStart, mainSprite!.rtb.Document.ContentEnd);
             using MemoryStream ms = new MemoryStream();
-            range.Save(ms, DataFormats.XamlPackage);
+            range.Save(ms, System.Windows.DataFormats.XamlPackage);
             GlobalDataHelper.appData!.DocumentBytes = ms.ToArray();
 
             GlobalDataHelper.Save();
             #endregion
 
             HotKeyHelper.DisposeHotKey();
-        }
-    }
-
-    public class Bool2ResourceConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if ((bool)value)
-                return Application.Current.FindResource(((string)parameter).Split(',')[0]);
-            else
-                return Application.Current.FindResource(((string)parameter).Split(',')[1]);
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
         }
     }
 }

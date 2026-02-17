@@ -86,15 +86,19 @@
                         Minimum="0.5" Maximum="1.0"/>-->
             </StackPanel>
 
-            <hc:ButtonGroup Width="100" Opacity=".75" Margin="5,0,0,0" HorizontalAlignment="Right">
+            <hc:ButtonGroup Width="100" Opacity=".75" Margin="5,0,0,0" HorizontalAlignment="Right" ItemContainerStyleSelector="{StaticResource MyButtonGroupItemStyleSelector}">
                 <Button Padding="0,5">
                     <Path Data="{StaticResource ai_Geometry}" Stretch="Uniform" Fill="{DynamicResource PrimaryTextBrush}"/>
                 </Button>
                 <ToggleButton Padding="0,6" IsChecked="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=Topmost}" MouseWheel="Opacity_MouseWheel" Cursor="SizeNS">
-                    <Path Data="{StaticResource Topmost}" Stretch="Uniform" Fill="{DynamicResource PrimaryTextBrush}"/>
+                    <InlineUIContainer>
+                        <Path Data="{StaticResource Topmost}" Stretch="Uniform" Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType=TextBlock}}"/>
+                    </InlineUIContainer>
                 </ToggleButton>
                 <ToggleButton Padding="0,5" IsChecked="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=(hc:WindowAttach.IsDragElement),Converter={StaticResource Boolean2BooleanReConverter}}">
-                    <Path Data="{StaticResource Pinned}" Stretch="Uniform" Fill="{DynamicResource PrimaryTextBrush}"/>
+                    <InlineUIContainer>
+                        <Path Data="{StaticResource Pinned}" Stretch="Uniform" Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType=TextBlock}}"/>
+                    </InlineUIContainer>
                 </ToggleButton>
                 <Button Padding="0,5" Click="CloseButton_Click">
                     <Path Data="{StaticResource DeleteFillCircleGeometry}" Stretch="Uniform" Fill="{DynamicResource DangerBrush}"/>

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:o="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
              xmlns:local="clr-namespace:WinNotes"
+             xmlns:helpers="clr-namespace:WinNotes.Helpers"
              xmlns:hc="clr-namespace:HandyControl.Controls;assembly=HandyControl"
              xmlns:system="clr-namespace:System;assembly=mscorlib">
     <Application.Resources>
@@ -14,12 +15,15 @@
             </ResourceDictionary.MergedDictionaries>
             <!--#endregion-->
 
-            <!--#region Converters-->
-            <local:Bool2ResourceConverter x:Key="B2RC"/>
+            <!--#region Helpers-->
+            <helpers:Bool2ResourceConverter x:Key="B2RC"/>
+            <helpers:MyButtonGroupItemStyleSelector x:Key="MyButtonGroupItemStyleSelector" />
             <!--#endregion-->
 
+            <!--#region Brushes-->
             <SolidColorBrush o:Freeze="True" x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}" Opacity=".75"/>
             <SolidColorBrush o:Freeze="True" x:Key="SecondaryBorderBrush" Color="{StaticResource SecondaryBorderColor}" Opacity=".75"/>
+            <!--#endregion-->
 
             <!--#region Geometry-->
             <Geometry o:Freeze="True" x:Key="Pinned">M549.138793 957.857173L512 1024l-37.138793-66.142827a5171.236202 5171.236202 0 0 1-40.37566-74.107225 5180.009816 5180.009816 0 0 1-88.587947-173.342761 3648.290147 3648.290147 0 0 1-35.137046-74.405357C248.876762 501.075573 213.867487 400.988229 213.867487 340.722872a298.132513 298.132513 0 1 1 596.265026 0c0 60.265358-35.009275 160.352701-96.893067 295.278958a3648.290147 3648.290147 0 0 1-35.179636 74.405357 5180.009816 5180.009816 0 0 1-128.921017 247.449986z m-34.796323-114.227343a5096.362351 5096.362351 0 0 0 87.139874-170.489207c12.095662-24.91536 23.595059-49.191865 34.327829-72.659152C692.199809 477.565695 724.951795 383.909495 724.951795 340.722872A212.951795 212.951795 0 0 0 299.048205 340.722872c0 43.186624 32.794576 136.842823 89.141622 259.801189 10.73277 23.424697 22.232167 47.701202 34.327829 72.616562A5096.362351 5096.362351 0 0 0 512 848.016637l2.34247-4.386807zM512 425.903589a85.180718 85.180718 0 1 1 0-170.361435 85.180718 85.180718 0 0 1 0 170.361435z</Geometry>
@@ -36,6 +40,68 @@
             <Geometry o:Freeze="True" x:Key="ai_Geometry">M332.8 204.8L221.866667 264.533333l64-110.933333L221.866667 42.666667l110.933333 64L443.733333 42.666667 384 153.6l64 110.933333c-4.266667 0-115.2-59.733333-115.2-59.733333zM870.4 640l110.933333-64-64 110.933333 64 110.933334-110.933333-64-110.933333 64 64-110.933334-64-110.933333 110.933333 64zM981.333333 42.666667l-64 110.933333L981.333333 264.533333l-110.933333-64-110.933333 64 64-110.933333L759.466667 42.666667l110.933333 64L981.333333 42.666667z m-388.266666 482.133333l110.933333-110.933333-93.866667-93.866667-110.933333 110.933333 93.866667 93.866667zM640 277.333333L746.666667 384c17.066667 17.066667 17.066667 46.933333 0 64L221.866667 968.533333c-17.066667 17.066667-46.933333 17.066667-64 0l-106.666667-106.666666c-17.066667-17.066667-17.066667-46.933333 0-64L576 277.333333c17.066667-17.066667 46.933333-17.066667 64 0z</Geometry>
             <Geometry o:Freeze="True" x:Key="fontSize_Geometry">M417.92 138.666667L704 885.333333H578.24l-60.992-166.954666H218.752L158.304 885.333333H32l286.08-746.666666h99.84z m370.389333 138.666666L992 810.666667h-89.546667l-43.424-119.253334H715.328l-27.466667-71.701333h146.954667L753.706667 386.72h-1.536l-73.109334 210.058667-41.994666-109.621334L717.205333 277.333333h71.104z m-418.954666 14.453334h-2.165334L253.301333 618.005333h229.941334L369.354667 291.786667z</Geometry>
             <!--#endregion-->
+
+            <!--#region Styles-->
+            <Style x:Key="MyToggleButtonGroupItemBaseStyle" BasedOn="{StaticResource BaseStyle}" TargetType="ToggleButton">
+                <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="hc:BorderElement.CornerRadius" Value="0" />
+                <Setter Property="Height" Value="{StaticResource DefaultControlHeight}" />
+                <Setter Property="Padding" Value="10,0" />
+                <Setter Property="Margin" Value="-1,0,0,0" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ToggleButton">
+                            <Border x:Name="BorderRoot" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="{TemplateBinding Padding}">
+                                    <Path x:Name="PathMain" Width="{TemplateBinding hc:IconElement.Width}" Height="{TemplateBinding hc:IconElement.Height}" Fill="{TemplateBinding Foreground}" SnapsToDevicePixels="True" Stretch="Uniform" Data="{TemplateBinding hc:IconElement.Geometry}" />
+                                    <ContentPresenter x:Name="contentPresenter" RecognizesAccessKey="True" VerticalAlignment="Center" Margin="6,0,0,0" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                </StackPanel>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <!--<Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="TextElement.Foreground" Value="{DynamicResource PrimaryBrush}" TargetName="contentPresenter" />
+                                </Trigger>-->
+                                <Trigger Property="IsChecked" Value="true">
+                                    <!--<Setter Property="BorderBrush" Value="{Binding Path=(hc:VisualElement.HighlightBorderBrush),RelativeSource={RelativeSource TemplatedParent}}" TargetName="BorderRoot" />-->
+                                    <Setter Property="Background" Value="{Binding Path=(hc:VisualElement.HighlightBackground),RelativeSource={RelativeSource TemplatedParent}}" TargetName="BorderRoot" />
+                                    <Setter Property="TextElement.Foreground" Value="{Binding Path=(hc:VisualElement.HighlightForeground),RelativeSource={RelativeSource TemplatedParent}}" TargetName="contentPresenter" />
+                                </Trigger>
+                                <Trigger Property="Content" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Collapsed" TargetName="contentPresenter" />
+                                </Trigger>
+                                <Trigger Property="hc:IconElement.Geometry" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Collapsed" TargetName="PathMain" />
+                                    <Setter Property="Margin" Value="0" TargetName="contentPresenter" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Opacity" Value="0.4" />
+                    </Trigger>
+                    <Trigger Property="IsChecked" Value="True">
+                        <Setter Property="Panel.ZIndex" Value="{x:Static system:Int32.MaxValue}" />
+                    </Trigger>
+                    <DataTrigger Binding="{Binding Orientation,RelativeSource={RelativeSource  AncestorType=hc:ButtonGroup}}" Value="Vertical">
+                        <Setter Property="Margin" Value="0,-1,0,0" />
+                    </DataTrigger>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource BorderBrush}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <!--#endregion-->
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
