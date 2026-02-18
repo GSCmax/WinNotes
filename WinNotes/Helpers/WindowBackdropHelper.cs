@@ -1,5 +1,4 @@
 ﻿using Microsoft.Win32;
-using System;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
@@ -134,7 +133,7 @@ namespace WinNotes.Helpers
 
             var accent = new AccentPolicy
             {
-                AccentState = AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND,
+                AccentState = AccentState.ACCENT_ENABLE_BLURBEHIND,
 
                 // AARRGGBB (半透明黑)
                 GradientColor = (120 << 24) | (0x1E << 16) | (0x1E << 8) | 0x1E

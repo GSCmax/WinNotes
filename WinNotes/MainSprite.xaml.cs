@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.IO;
+﻿using System.IO;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -16,7 +15,11 @@ namespace WinNotes
         {
             InitializeComponent();
 
-            Helpers.WindowBackdropHelper.Apply(this);
+            // Windows11 不需要白色背景了，直接透明就行了
+            if (Environment.OSVersion.Version.Build >= 22000)
+                Background = System.Windows.Media.Brushes.Transparent;
+
+            WindowBackdropHelper.Apply(this);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

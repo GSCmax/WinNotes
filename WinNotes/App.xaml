@@ -21,10 +21,10 @@
             <!--#endregion-->
 
             <!--#region Brushes-->
-            <SolidColorBrush o:Freeze="True" x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}" Opacity=".75"/>
-            <SolidColorBrush o:Freeze="True" x:Key="SecondaryBorderBrush" Color="{StaticResource SecondaryBorderColor}" Opacity=".75"/>
-            <SolidColorBrush o:Freeze="True" x:Key="BorderBrush" Color="{StaticResource BorderColor}" Opacity=".5"/>
-            <SolidColorBrush o:Freeze="True" x:Key="RegionBrush" Color="{StaticResource RegionColor}" Opacity=".75"/>
+            <!--<SolidColorBrush o:Freeze="True" x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}" Opacity=".6"/>-->
+            <SolidColorBrush o:Freeze="True" x:Key="SecondaryBorderBrush" Color="{StaticResource SecondaryBorderColor}" Opacity=".6"/>
+            <SolidColorBrush o:Freeze="True" x:Key="BorderBrush" Color="{StaticResource SecondaryBorderColor}" Opacity=".6"/>
+            <SolidColorBrush o:Freeze="True" x:Key="RegionBrush" Color="{StaticResource RegionColor}" Opacity=".6"/>
             <!--#endregion-->
 
             <!--#region Geometry-->
@@ -113,7 +113,7 @@
                                 </Trigger>-->
                                 <Trigger Property="IsChecked" Value="true">
                                     <!--<Setter Property="BorderBrush" Value="{Binding Path=(hc:VisualElement.HighlightBorderBrush),RelativeSource={RelativeSource TemplatedParent}}" TargetName="BorderRoot" />-->
-                                    <Setter Property="Background" Value="{Binding Path=(hc:VisualElement.HighlightBackground),RelativeSource={RelativeSource TemplatedParent}}" TargetName="BorderRoot" />
+                                    <!--<Setter Property="Background" Value="{Binding Path=(hc:VisualElement.HighlightBackground),RelativeSource={RelativeSource TemplatedParent}}" TargetName="BorderRoot" />-->
                                     <Setter Property="TextElement.Foreground" Value="{Binding Path=(hc:VisualElement.HighlightForeground),RelativeSource={RelativeSource TemplatedParent}}" TargetName="contentPresenter" />
                                 </Trigger>
                                 <Trigger Property="Content" Value="{x:Null}">
