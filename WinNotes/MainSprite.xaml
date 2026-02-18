@@ -20,7 +20,7 @@
            Height="{Binding Source={x:Static helpers:GlobalDataHelper.appConfig}, Path=Height}" MinHeight="200" 
            Opacity="{Binding Source={x:Static helpers:GlobalDataHelper.appConfig}, Path=Opacity}" 
            BorderThickness="0,3,0,0" BorderBrush="{Binding IsActive, RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource B2RC}, ConverterParameter='PrimaryBrush,SecondaryBorderBrush'}"
-           WindowStyle="None" Background="{DynamicResource RegionBrush}" helpers:WindowBlur.IsEnabled="True" 
+           WindowStyle="None" Background="Transparent"
            Loaded="Window_Loaded" Activated="Window_Activated"
            mc:Ignorable="d">
 

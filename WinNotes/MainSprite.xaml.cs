@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -14,6 +15,8 @@ namespace WinNotes
         public MainSprite()
         {
             InitializeComponent();
+
+            Helpers.WindowBackdropHelper.Apply(this);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
