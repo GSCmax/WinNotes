@@ -23,6 +23,8 @@
             <!--#region Brushes-->
             <SolidColorBrush o:Freeze="True" x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}" Opacity=".75"/>
             <SolidColorBrush o:Freeze="True" x:Key="SecondaryBorderBrush" Color="{StaticResource SecondaryBorderColor}" Opacity=".75"/>
+            <SolidColorBrush o:Freeze="True" x:Key="BorderBrush" Color="{StaticResource BorderColor}" Opacity=".5"/>
+            <SolidColorBrush o:Freeze="True" x:Key="RegionBrush" Color="{StaticResource RegionColor}" Opacity=".75"/>
             <!--#endregion-->
 
             <!--#region Geometry-->
@@ -42,6 +44,49 @@
             <!--#endregion-->
 
             <!--#region Styles-->
+            <Style TargetType="{x:Type Paragraph}">
+                <Setter Property="LineHeight" Value="1.5"/>
+            </Style>
+
+            <Style x:Key="MyRichTextBoxBaseStyle" TargetType="TextBoxBase">
+                <Setter Property="MinWidth" Value="10" />
+                <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="CaretBrush" Value="{DynamicResource PrimaryTextBrush}" />
+                <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
+                <Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                <Setter Property="AllowDrop" Value="true" />
+                <Setter Property="Padding" Value="2,7" />
+                <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst" />
+                <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden" />
+                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden" />
+                <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="TextBoxBase">
+                            <Border x:Name="border" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                                <ScrollViewer x:Name="PART_ContentHost" Padding="{TemplateBinding Padding}" Focusable="false" HorizontalScrollBarVisibility="{Binding Path=(ScrollViewer.HorizontalScrollBarVisibility),RelativeSource={RelativeSource TemplatedParent}}" VerticalScrollBarVisibility="{Binding Path=(ScrollViewer.VerticalScrollBarVisibility),RelativeSource={RelativeSource TemplatedParent}}" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <!--<Trigger Property="IsEnabled" Value="false">
+                                    <Setter Property="Opacity" TargetName="border" Value="0.4" />
+                                </Trigger>-->
+                                <!--<Trigger Property="IsMouseOver" Value="true">
+                                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource SecondaryBorderBrush}" />
+                                </Trigger>-->
+                                <!--<Trigger Property="IsFocused" Value="true">
+                                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource PrimaryBrush}" />
+                                </Trigger>-->
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
             <Style x:Key="MyToggleButtonGroupItemBaseStyle" BasedOn="{StaticResource BaseStyle}" TargetType="ToggleButton">
                 <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
                 <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
