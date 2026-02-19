@@ -111,7 +111,7 @@
                           IsChecked="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=(hc:WindowAttach.IsDragElement)}" Foreground="{DynamicResource PrimaryTextBrush}"/>-->
         </hc:SimplePanel>
 
-        <RichTextBox x:Name="rtb" FontSize="20" AcceptsReturn="True" Foreground="Black" Background="Transparent" Margin="0,5,0,0"
+        <RichTextBox x:Name="rtb" FontSize="20" AcceptsReturn="True" Foreground="Black" Background="Transparent" Margin="0,5,0,0" VerticalScrollBarVisibility="Auto"
                      Style="{StaticResource MyRichTextBoxBaseStyle}" BorderBrush="{Binding RelativeSource={RelativeSource AncestorType=hc:Window}, Path=BorderBrush}">
             <i:Interaction.Behaviors>
                 <helpers:ImageAutoResizeBehavior/>
