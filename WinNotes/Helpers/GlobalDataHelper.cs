@@ -35,10 +35,10 @@ namespace WinNotes.Helpers
                 }
                 catch
                 {
-                    appData = new AppData();
+                    appData = new AppData { DocumentBytes = Array.Empty<byte>() };
                 }
             else
-                appData = new AppData();
+                appData = new AppData { DocumentBytes = Array.Empty<byte>() };
         }
 
         public static void Save()
@@ -47,8 +47,8 @@ namespace WinNotes.Helpers
             Directory.CreateDirectory(AppConfig.SavePath);
             File.WriteAllText(ConfigFile, json1);
 
-
-            File.WriteAllBytes(DataFile, appData!.DocumentBytes);
+            Directory.CreateDirectory(AppData.SavePath);
+            File.WriteAllBytes(DataFile, appData?.DocumentBytes ?? Array.Empty<byte>());
         }
     }
 }

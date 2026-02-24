@@ -158,7 +158,8 @@ namespace WinNotes.Helpers
 
         public static void DisposeHotKey()
         {
-            hks!.Dispose();
+            hks?.Dispose();
+            hks = null;
         }
     }
 
