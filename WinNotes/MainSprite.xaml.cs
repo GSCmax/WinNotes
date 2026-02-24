@@ -26,9 +26,16 @@ namespace WinNotes
         {
             if (GlobalDataHelper.appData?.DocumentBytes != null)
             {
-                TextRange range = new TextRange(rtb.Document.ContentStart, rtb.Document.ContentEnd);
-                using MemoryStream ms = new MemoryStream(GlobalDataHelper.appData.DocumentBytes);
-                range.Load(ms, System.Windows.DataFormats.XamlPackage);
+                try
+                {
+                    TextRange range = new TextRange(rtb.Document.ContentStart, rtb.Document.ContentEnd);
+                    using MemoryStream ms = new MemoryStream(GlobalDataHelper.appData.DocumentBytes);
+                    range.Load(ms, System.Windows.DataFormats.XamlPackage);
+                }
+                catch
+                {
+                    rtb.Document = new FlowDocument();
+                }
             }
         }
 

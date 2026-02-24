@@ -20,8 +20,6 @@
         public bool Topmost { get; set; } = true;
 
         public string HotKey { get; set; } = "Control+Alt,N";
-
-        public string DeepSeekAddr { get; set; } = "https://chat.deepseek.com";
     }
 
 
